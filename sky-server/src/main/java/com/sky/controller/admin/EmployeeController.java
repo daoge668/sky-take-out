@@ -67,8 +67,7 @@ public class EmployeeController {
     }
 
     /**
-     * 退出
-     *
+     * 登出
      * @return
      */
     @ApiOperation("员工退出")
@@ -77,6 +76,12 @@ public class EmployeeController {
         return Result.success();
     }
 
+
+    /**
+     * 新增员工
+     * @param employeeDTO
+     * @return
+     */
     @ApiOperation("增加员工")
     @PostMapping
     public Result save(@RequestBody EmployeeDTO employeeDTO){
@@ -85,6 +90,12 @@ public class EmployeeController {
         return Result.success();
     }
 
+
+    /**
+     * 员工分页查询
+     * @param employeePageQueryDTO
+     * @return
+     */
     @ApiOperation("员工分页查询")
     @GetMapping("/page")
     public Result<PageResult> page(EmployeePageQueryDTO employeePageQueryDTO){
@@ -93,6 +104,13 @@ public class EmployeeController {
         return Result.success(pageResult);
     }
 
+
+    /**
+     * 
+     * @param status
+     * @param id
+     * @return
+     */
     @ApiOperation("员工状态启用或禁用")
     @PostMapping("/status/{status}")
     public Result startOrStop(@PathVariable Integer status, Long id){
