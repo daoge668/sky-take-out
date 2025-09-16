@@ -35,10 +35,10 @@ public class EmployeeController {
     private JwtProperties jwtProperties;
 
     /**
-     * 登录
+     * 员工登录
      *
-     * @param employeeLoginDTO
-     * @return
+     * @param employeeLoginDTO 员工登录信息
+     * @return 登录结果VO对象
      */
 
     @ApiOperation("员工登录")
@@ -67,8 +67,8 @@ public class EmployeeController {
     }
 
     /**
-     * 登出
-     * @return
+     * 员工登出
+     * @return 登出结果
      */
     @ApiOperation("员工退出")
     @PostMapping("/logout")
@@ -79,8 +79,8 @@ public class EmployeeController {
 
     /**
      * 新增员工
-     * @param employeeDTO
-     * @return
+     * @param employeeDTO 员工信息DTO
+     * @return 添加结果
      */
     @ApiOperation("增加员工")
     @PostMapping
@@ -93,8 +93,8 @@ public class EmployeeController {
 
     /**
      * 员工分页查询
-     * @param employeePageQueryDTO
-     * @return
+     * @param employeePageQueryDTO 员工分页查询条件
+     * @return 分页查询结果
      */
     @ApiOperation("员工分页查询")
     @GetMapping("/page")
@@ -106,10 +106,10 @@ public class EmployeeController {
 
 
     /**
-     * 
-     * @param status
-     * @param id
-     * @return
+     * 启用或禁用员工账号
+     * @param status 员工状态(1:启用 0:禁用)
+     * @param id 员工ID
+     * @return 操作结果
      */
     @ApiOperation("员工状态启用或禁用")
     @PostMapping("/status/{status}")
@@ -119,6 +119,11 @@ public class EmployeeController {
         return Result.success();
     }
 
+    /**
+     * 根据ID查询员工信息
+     * @param id 员工ID
+     * @return 员工信息
+     */
     @ApiOperation("根据id查询员工")
     @GetMapping("/{id}")
     public Result<Employee> getById(@PathVariable Long id){
@@ -130,8 +135,8 @@ public class EmployeeController {
 
     /**
      * 修改员工信息
-     * @param employeeDTO
-     * @return
+     * @param employeeDTO 员工信息DTO
+     * @return 修改结果
      */
     @ApiOperation("修改员工信息")
     @PutMapping
