@@ -9,5 +9,5 @@ sky:
   alioss:
     bucket-name: sky-take-out-daoge
     endpoint: oss-cn-beijing.aliyuncs.com
-    access-key-secret: YRN6tDmF7FHLyQ76XOQSgKCxkPylMN
-    access-key-id: LTAI5tCPzRtiJHUK2uHrdaxg
+    access-key-secret: ${ALI_OSS_ACCESS_KEY_SECRET}
+    access-key-id: ${ALI_OSS_ACCESS_KEY_ID}
