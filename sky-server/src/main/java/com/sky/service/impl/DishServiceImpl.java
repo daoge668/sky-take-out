@@ -100,7 +100,12 @@ public class DishServiceImpl implements DishService {
         return dishVO;
     }
 
-    @Override
+
+    /**
+     * 修改菜品
+     * @param dishDTO
+     */
+    @Transactional
     public void update(DishDTO dishDTO) {
         //修改基本信息
         Dish dish = new Dish();
