@@ -22,7 +22,7 @@
     <select id="page" resultType="com.sky.vo.DishVO">
         select d.*,c.name from dish d left join category c on d.category_id = c.id
         <where>
-            <if test="name != null">
+            <if test="name != null and name != ''">
                 and name like concat('%',#{name},'%')
             </if>
             <if test="categoryId != null">
