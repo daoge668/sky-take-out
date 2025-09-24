@@ -53,8 +53,9 @@ public class DishServiceImpl implements DishService {
                 dishFlavor.setDishId(id);
             });
         }
-
-        dishFlavorMapper.insertBatch(flavors);
+        if (flavors != null && flavors.size() > 0){
+            dishFlavorMapper.insertBatch(flavors);
+        }
 
     }
 
@@ -122,7 +123,9 @@ public class DishServiceImpl implements DishService {
         Ids.add(dishDTO.getId());
         dishFlavorMapper.deleteByDishId(Ids);
         //重新插入新的口味数据
-        dishFlavorMapper.insertBatch(flavors);
+        if (flavors != null && flavors.size() > 0) {
+            dishFlavorMapper.insertBatch(flavors);
+        }
     }
     /**
      * 条件查询菜品和口味
