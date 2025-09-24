@@ -9,6 +9,7 @@ sky:
   alioss:
     bucket-name: sky-take-out-daoge
     endpoint: oss-cn-beijing.aliyuncs.com
+    #储存在环境变量中
     access-key-secret: ${ALI_OSS_ACCESS_KEY_SECRET}
     access-key-id: ${ALI_OSS_ACCESS_KEY_ID}
   redis:
@@ -16,3 +17,7 @@ sky:
     port: 6379
     password: 123456
     database: 10
+  wechat:
+    #储存在环境变量中
+    appid: ${WECHAT_APPID}
+    secret: ${WECHAT_SECRET}

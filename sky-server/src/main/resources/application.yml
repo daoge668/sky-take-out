@@ -37,6 +37,11 @@ logging:
 
 sky:
   jwt:
+    # 设置用户端访问令牌名称
+    user-secret-key: itheima
+    user-ttl: 72000000000
+    user-token-name: authentication
+
     # 设置jwt签名加密时使用的秘钥
     admin-secret-key: itcast
     # 设置jwt过期时间
@@ -48,3 +53,6 @@ sky:
     access-key-id: ${sky.alioss.access-key-id}
     access-key-secret: ${sky.alioss.access-key-secret}
     bucket-name: ${sky.alioss.bucket-name}
+  wechat:
+    appid: ${sky.wechat.appid}
+    secret: ${sky.wechat.secret}
