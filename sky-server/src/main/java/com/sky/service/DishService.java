@@ -2,9 +2,11 @@ package com.sky.service;
 
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
+import com.sky.dto.SetmealDTO;
 import com.sky.entity.Dish;
 import com.sky.result.PageResult;
 import com.sky.vo.DishVO;
+import com.sky.vo.SetmealVO;
 
 import java.util.List;
 
@@ -24,4 +26,7 @@ public interface DishService {
      * @return
      */
     List<DishVO> listWithFlavor(Dish dish);
+
+    List<DishVO> getByCategoryId(Long categoryId);
+
 }

@@ -1,9 +1,16 @@
 package com.sky.mapper;
 
+import com.github.pagehelper.Page;
+import com.sky.annotation.AutoFill;
+import com.sky.constant.AutoFillConstant;
+import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.entity.Setmeal;
+import com.sky.enumeration.OperationType;
 import com.sky.vo.DishItemVO;
+import com.sky.vo.SetmealVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -35,4 +42,16 @@ public interface SetmealMapper {
             "where sd.setmeal_id = #{setmealId}")
     List<DishItemVO> getDishItemBySetmealId(Long setmealId);
 
+    @AutoFill(value = OperationType.INSERT)
+    void insert(Setmeal setmeal);
+
+    Page<Setmeal> page(SetmealPageQueryDTO setmealPageQueryDTO);
+
+    void delete(List<Long> ids);
+
+    @AutoFill(value = OperationType.UPDATE)
+    void update(Setmeal setmeal);
+
+    @Select("select * from setmeal where id = #{id}")
+    SetmealVO getById(Long id);
 }

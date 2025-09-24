@@ -8,7 +8,7 @@ import com.sky.vo.DishItemVO;
 import com.sky.vo.SetmealVO;
 import java.util.List;
 
-public interface SetmealService {
+public interface SetmealService{
 
     /**
      * 条件查询
@@ -24,4 +24,15 @@ public interface SetmealService {
      */
     List<DishItemVO> getDishItemById(Long id);
 
+    void addSetmeal(SetmealDTO setmealDTO);
+
+    PageResult page(SetmealPageQueryDTO setmealPageQueryDTO);
+
+    void delete(List<Long> ids);
+
+    void update(SetmealDTO setmealDTO);
+
+    SetmealVO getById(Long id);
+
+    void startOrStop(Integer status, Long id);
 }
