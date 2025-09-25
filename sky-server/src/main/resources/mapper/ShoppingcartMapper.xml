@@ -6,6 +6,20 @@
         insert into shopping_cart (name, user_id, dish_id, setmeal_id, dish_flavor, number, amount, image, create_time)
             values (#{name},#{userId},#{dishId},#{setmealId},#{dishFlavor},#{number},#{amount},#{image},#{createTime})
     </insert>
+    <delete id="sub">
+        delete from shopping_cart
+        <where>
+            <if test="userId != null">
+                user_id = #{userId}
+            </if>
+            <if test="dishId != null">
+                and dish_id = #{dishId}
+            </if>
+            <if test="setmealId != null">
+                and setmeal_id = #{setmealId}
+            </if>
+        </where>
+    </delete>
 
     <select id="list" resultType="com.sky.entity.ShoppingCart">
         select * from shopping_cart
@@ -24,5 +38,19 @@
             </if>
         </where>
         order by create_time desc
+    </select>
+    <select id="getById" resultType="com.sky.entity.ShoppingCart">
+        select * from shopping_cart
+        <where>
+            <if test="dishId != null">
+                and dish_id = #{dishId}
+            </if>
+            <if test="setmealId != null">
+                and setmeal_id = #{setmealId}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+        </where>
     </select>
 </mapper>

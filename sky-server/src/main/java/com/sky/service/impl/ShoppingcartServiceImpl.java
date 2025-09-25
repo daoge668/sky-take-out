@@ -75,4 +75,23 @@ public class ShoppingcartServiceImpl implements ShoppingcartService {
         List<ShoppingCart> list = shoppingcartMapper.list(shoppingCart);
         return list;
     }
+
+    public void clean() {
+        Long userId = BaseContext.getCurrentId();
+        shoppingcartMapper.delete(userId);
+    }
+
+    public void sub(ShoppingCartDTO shoppingCartDTO) {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        BeanUtils.copyProperties(shoppingCartDTO, shoppingCart);
+        shoppingCart.setUserId(BaseContext.getCurrentId());
+        ShoppingCart cart = shoppingcartMapper.getById(shoppingCart);
+        if (cart.getNumber() == 1) {
+            shoppingcartMapper.sub(shoppingCart);
+        }else{
+            cart.setNumber(cart.getNumber() - 1);
+            shoppingcartMapper.updateNumberById(cart);
+        }
+
+    }
 }
