@@ -53,5 +53,5 @@ public interface SetmealMapper {
     void update(Setmeal setmeal);
 
     @Select("select * from setmeal where id = #{id}")
-    SetmealVO getById(Long id);
+    Setmeal getById(Long id);
 }
