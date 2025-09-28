@@ -44,4 +44,6 @@ public interface OrderService {
     void complete(Long id);
 
     void cancel(OrdersCancelDTO ordersCancelDTO) throws Exception;
+
+    void reminder(Long id);
 }
