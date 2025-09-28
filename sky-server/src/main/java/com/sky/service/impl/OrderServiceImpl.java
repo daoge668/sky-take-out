@@ -21,6 +21,7 @@ import com.sky.vo.OrderPaymentVO;
 import com.sky.vo.OrderStatisticsVO;
 import com.sky.vo.OrderSubmitVO;
 import com.sky.vo.OrderVO;
+import com.sky.websocket.WebSocketServer;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,6 +50,8 @@ public class OrderServiceImpl implements OrderService {
     private AddressBookMapper addressBookMapper;
     @Autowired
     private OrderDetailMapper orderDetailMapper;
+    @Autowired
+    private WebSocketServer webSocketServer;
     @Value("${sky.shop.address}")
     private String shopAddress;
 
@@ -96,12 +99,24 @@ public class OrderServiceImpl implements OrderService {
         orderMapper.insertBatch(orderDetails);
         //清空购物车
         shoppingcartMapper.delete(userId);
+        //使用webSocket发送订单提醒
+        //////////////////////////////////////////////
+        Map map = new HashMap();
+        map.put("type", 1);//消息类型，1表示来单提醒
+        map.put("orderId", order.getId());
+        map.put("content", "订单号：" + order.getNumber());
+
+        //通过WebSocket实现来单提醒，向客户端浏览器推送消息
+        webSocketServer.sendToAllClient(JSON.toJSONString(map));
+        ///////////////////////////////////////////////////
         return OrderSubmitVO.builder()
                 .id(order.getId())
                 .orderNumber(order.getNumber())
                 .orderAmount(order.getAmount())
                 .orderTime(order.getOrderTime())
                 .build();
+
+
     }
 
     /**
