@@ -29,6 +29,6 @@ sky:
     notifyUrl: https://www.weixin.qq.com/wxpay/pay.php
     refundNotifyUrl: https://www.weixin.qq.com/wxpay/pay.php
   shop:
-    adress: ****
+    adress:
   baidu:
-    ak: ******
+    ak:

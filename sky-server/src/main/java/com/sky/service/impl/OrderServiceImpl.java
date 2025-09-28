@@ -58,7 +58,8 @@ public class OrderServiceImpl implements OrderService {
     public OrderSubmitVO submitOrder(OrdersSubmitDTO ordersSubmitDTO) {
         //检查收货地址是否存在
         AddressBook addressBook = addressBookMapper.getById(ordersSubmitDTO.getAddressBookId());
-        checkOutOfRange(addressBook.getCityName()+ addressBook.getDistrictName()+ addressBook.getDetail());
+        //查看配送范围
+//        checkOutOfRange(addressBook.getCityName()+ addressBook.getDistrictName()+ addressBook.getDetail());
         if (addressBook == null) {
             throw new AddressBookBusinessException(MessageConstant.ADDRESS_BOOK_IS_NULL);
         }
@@ -326,6 +327,7 @@ public class OrderServiceImpl implements OrderService {
                 .id(ordersDB.getId())
                 .status(Orders.CANCELLED) // 状态：3-拒单
                 .rejectionReason(ordersRejectionDTO.getRejectionReason())
+                .cancelReason("商家拒绝接单")
                 .build();
         orderMapper.update(orders);
     }
@@ -372,6 +374,30 @@ public class OrderServiceImpl implements OrderService {
         orders.setStatus(Orders.COMPLETED);
         orders.setDeliveryTime(LocalDateTime.now());
 
+        orderMapper.update(orders);
+    }
+
+    @Override
+    public void cancel(OrdersCancelDTO ordersCancelDTO) throws Exception {
+        Orders ordersDB = orderMapper.getById(ordersCancelDTO.getId());
+
+        //支付状态
+        Integer payStatus = ordersDB.getPayStatus();
+        if (payStatus == 1) {
+            //用户已支付，需要退款
+            String refund = weChatPayUtil.refund(
+                    ordersDB.getNumber(),
+                    ordersDB.getNumber(),
+                    new BigDecimal(0.01),
+                    new BigDecimal(0.01));
+        }
+
+        // 管理端取消订单需要退款，根据订单id更新订单状态、取消原因、取消时间
+        Orders orders = new Orders();
+        orders.setId(ordersCancelDTO.getId());
+        orders.setStatus(Orders.CANCELLED);
+        orders.setCancelReason(ordersCancelDTO.getCancelReason());
+        orders.setCancelTime(LocalDateTime.now());
         orderMapper.update(orders);
     }
 
