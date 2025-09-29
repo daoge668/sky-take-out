@@ -8,4 +8,8 @@ import java.util.List;
 @Mapper
 public interface ReportMapper {
     Double getTurnoverStatistics(HashMap<String, Object> map);
+
+    Integer getUserStatistics(HashMap<String, Object> map);
+
+    Integer getOrderCount(HashMap<String, Object> map);
 }
