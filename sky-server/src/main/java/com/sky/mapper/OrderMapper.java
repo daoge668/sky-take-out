@@ -2,6 +2,7 @@ package com.sky.mapper;
 
 
 import com.github.pagehelper.Page;
+import com.sky.dto.GoodsSalesDTO;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.entity.OrderDetail;
 import com.sky.entity.Orders;
@@ -47,4 +48,6 @@ public interface OrderMapper {
     Page<Orders> conditionSearch(OrdersPageQueryDTO ordersPageQueryDTO);
 
     List<Orders> getByStatusAndOrderTime(Integer status, LocalDateTime time);
+
+    List<GoodsSalesDTO> getSalesTop10(LocalDateTime begin, LocalDateTime end);
 }
